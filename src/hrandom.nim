@@ -5,3 +5,10 @@
 type
   XorShift* = ref object
     x: int
+
+proc rand(obj: XorShift): (int, XorShift) =
+  var nextObj = obj
+  nextObj.x = nextObj.x shl 13
+  nextObj.x = nextObj.x shr 7
+  nextObj.x = nextObj.x shl 17
+  (nextObj.x, nextObj)
