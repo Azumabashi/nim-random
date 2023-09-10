@@ -26,3 +26,15 @@ proc rand*(gen: XorShift, left, right: int64): (int64, XorShift) =
   let offset = 0.499999999999
   let (val, nextGen) = gen.rand(left.toFloat - offset, right.toFloat + offset)
   (int64(round(val)), nextGen)
+
+proc shuffle*[T](arr: seq[T], gen: XorShift): (seq[T], XorShift) =
+  var
+    newArr = arr
+    nextGen = gen
+    j = 0
+  for i in 0..<arr.len:
+    (j, nextGen) = nextGen.rand(0, arr.len - 1)
+    let tmp = newArr[j]
+    newArr[j] = newArr[i]
+    newArr[i] = tmp
+  (newArr, nextGen)
