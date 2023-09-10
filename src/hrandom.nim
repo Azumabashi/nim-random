@@ -4,9 +4,9 @@
 
 type
   XorShift* = ref object
-    x: int
+    x: int64
 
-proc rand(obj: XorShift): (int, XorShift) =
+proc rand(obj: XorShift): (int64, XorShift) =
   var nextObj = obj
   nextObj.x = nextObj.x shl 13
   nextObj.x = nextObj.x shr 7
