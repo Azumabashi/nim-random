@@ -11,3 +11,10 @@ proc rand*(gen: XorShift): (int64, XorShift) =
   nextGen.x = nextGen.x xor (nextGen.x shr 7)
   nextGen.x = nextGen.x xor (nextGen.x shl 17)
   (nextGen.x, nextGen)
+
+proc rand*(gen: XorShift, left, right: float64): (float64, XorShift) =
+  assert left <= right
+  let (val, nextGen) = gen.rand()
+  let ratio = (float64(val) - float64(low(int64))) / (float64(high(int64)) - float64(low(int64)))
+  let res = left + ratio * (right - left)
+  (res, nextGen)
