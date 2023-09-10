@@ -48,3 +48,11 @@ test "shuffle seq":
     after: seq[int] = @[]
   (after, generator) = before.shuffle(generator)
   check after.toHashSet == before.toHashSet
+
+test "takeN":
+  let before = @[0, 1, 2, 3, 4, 5]
+  var
+    generator = init(42)
+    after: seq[int] = @[]
+  (after, generator) = before.takeN(2, generator)
+  check after.toHashSet < before.toHashSet
