@@ -38,3 +38,8 @@ proc shuffle*[T](arr: seq[T], gen: XorShift): (seq[T], XorShift) =
     newArr[j] = newArr[i]
     newArr[i] = tmp
   (newArr, nextGen)
+
+proc takeN*[T](arr: seq[T], takes: int, gen: XorShift): (seq[T], XorShift) =
+  assert 0 <= takes and takes <= arr.len
+  let (shuffled, nextGen) = arr.shuffle(gen)
+  (shuffled[0..<takes], nextGen)
