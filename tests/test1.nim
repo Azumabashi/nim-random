@@ -37,8 +37,6 @@ test "generate 2^{20} random values included to {-1, 0, 1}":
     generator = init(42)
     result: int64 = 0
     trials = 1 shl 20
-  for i in lb..ub:
-    results[i] = 0
   for _ in 0..<trials:
     (result, generator) = generator.rand(lb, ub)
     check lb <= result and result <= ub
